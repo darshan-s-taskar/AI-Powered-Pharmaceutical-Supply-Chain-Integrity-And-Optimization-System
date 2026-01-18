@@ -1,7 +1,7 @@
 # Create the environment
-python3 -m venv med_detect_env
+python -m venv med_detect_env
 
 # Activate it
-med_detect_env/bin/activate
+med_detect_env\Scripts\activate 
 
 pip install -r requirements.txt
