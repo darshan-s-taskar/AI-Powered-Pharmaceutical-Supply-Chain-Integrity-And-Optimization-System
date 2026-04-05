@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Medicine | AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="layout-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <div class="brand-mark">AI</div>
+                <div>
+                    <div class="brand-name">AI Pharma Integrity System</div>
+                    <div class="brand-subtitle">Supply Chain Optimization</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Sidebar Navigation">
+                <a class="nav-link nav-anchor" href="{{ url_for('dashboard.index') }}" aria-label="Dashboard">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 5h7v6H4zM13 5h7v10h-7zM4 13h7v6H4zM13 17h7v2h-7z" fill="currentColor"/></svg>
+                    </span>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+                <a class="nav-link nav-anchor active" href="{{ url_for('dashboard.scan_page') }}" aria-label="Scan Medicine">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v10H4zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="nav-label">Scan Medicine</span>
+                </a>
+                <a class="nav-link nav-anchor" href="{{ url_for('history_page') }}" aria-label="History">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M7 4v3M17 4v3M5 9h14M6 6h12a1 1 0 0 1 1 1v11H5V7a1 1 0 0 1 1-1Zm3 6h6M9 16h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="nav-label">History</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-note">Healthcare dashboard</div>
+                <div class="sidebar-status">System ready</div>
+            </div>
+        </aside>
+
+        <main class="content-shell">
+            <header class="app-header">
+                <div class="app-header-left">
+                    <button class="sidebar-toggle" type="button" aria-label="Toggle sidebar" aria-expanded="true">
+                        <span class="sidebar-toggle-icon" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+                    <div class="app-header-brand">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</div>
+                </div>
+                <div class="app-header-profile">Admin</div>
+            </header>
+
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</p>
+                    <div class="header-brand-title">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</div>
+                    <h1>Scan Medicine</h1>
+                    <p class="topbar-copy">A polished healthcare demo interface for medicine integrity checks using upload, camera, and barcode workflows.</p>
+                </div>
+            </header>
+
+            <section class="scan-page-grid">
+                <section class="panel">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-label">Option 1</p>
+                            <h2>Upload Image</h2>
+                        </div>
+                    </div>
+
+                    <form id="uploadForm" class="upload-form">
+                        <label for="medicineImage" class="dropzone">
+                            <span class="feature-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V6m0 0-4 4m4-4 4 4M5 18h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                            <span class="dropzone-title">Choose medicine image</span>
+                            <span class="dropzone-copy">Upload a clear image of the medicine strip, carton, or packaging label.</span>
+                        </label>
+                        <input id="medicineImage" name="medicine_image" type="file" accept=".png,.jpg,.jpeg,.webp" required>
+                        <button class="primary-button" type="submit" id="submitImageButton">Submit Image</button>
+                    </form>
+                </section>
+
+                <section class="panel">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-label">Option 2</p>
+                            <h2>Camera Capture</h2>
+                        </div>
+                    </div>
+
+                    <div class="camera-layout">
+                        <video id="cameraFeed" autoplay playsinline muted></video>
+                        <canvas id="cameraCanvas" hidden></canvas>
+                        <div class="camera-actions">
+                            <button class="secondary-button" type="button" id="startCameraButton">
+                                <span class="button-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-2h6l2 2h3v10H4zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                                Start Camera
+                            </button>
+                            <button class="primary-button" type="button" id="captureButton">
+                                <span class="button-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/></svg>
+                                </span>
+                                Capture
+                            </button>
+                        </div>
+                        <p class="camera-helper">The live preview uses the browser `getUserMedia` API, captures the current frame, and sends it to Flask just like an uploaded file.</p>
+                    </div>
+                </section>
+            </section>
+
+            <section class="panel barcode-panel-page">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">Barcode Scanner</p>
+                        <h2>Scan Barcode or QR Code</h2>
+                    </div>
+                </div>
+
+                <div class="barcode-grid">
+                    <div>
+                        <div id="barcodeReader" class="barcode-reader"></div>
+                        <div class="camera-actions">
+                            <button class="secondary-button" type="button" id="startBarcodeButton">
+                                <span class="button-icon">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3M8 6v12M12 6v12M15 6v12M18 6v12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                                Start Barcode Scanner
+                            </button>
+                            <button class="primary-button" type="button" id="stopBarcodeButton">Stop Scanner</button>
+                        </div>
+                    </div>
+
+                    <div class="barcode-result-card">
+                        <div class="section-label">Scanned Value</div>
+                        <div id="barcodeValue" class="barcode-value">No barcode scanned yet.</div>
+                        <div id="barcodeStatus" class="barcode-status">Waiting for scanner input.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel result-panel-page">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">Prediction Result</p>
+                        <h2>Latest Scan Response</h2>
+                    </div>
+                </div>
+
+                <div id="scanFeedback" class="feedback" aria-live="polite"></div>
+                <div id="processingIndicator" class="processing-indicator hidden" aria-live="polite">
+                    <span class="processing-spinner"></span>
+                    <span>Processing...</span>
+                </div>
+
+                {% set result = latest_result %}
+                <div id="resultEmptyState" class="empty-state {% if result %}hidden{% endif %}">
+                    Upload or capture a medicine image to view the verification result here.
+                </div>
+
+                <div id="resultContent" class="result-content {% if not result %}hidden{% endif %}">
+                    <article id="verdictCard" class="verdict-card prominent-result {% if result %}{{ result.label|lower }}{% endif %}">
+                        <div class="verdict-top">
+                            <div>
+                                <div class="section-label">Prediction</div>
+                                <div id="resultLabel" class="verdict-label">{% if result %}{{ result.label }}{% endif %}</div>
+                            </div>
+                            <div class="confidence-box">
+                                <span>Confidence</span>
+                                <strong id="resultConfidence">{% if result %}{{ "%.0f"|format(result.confidence * 100) }}%{% endif %}</strong>
+                            </div>
+                        </div>
+                        <div class="result-meta-row">
+                            <div class="result-chip real-chip">REAL = green verified outcome</div>
+                            <div class="result-chip fake-chip">FAKE = red suspicious outcome</div>
+                            <div id="historySavedChip" class="result-chip info-chip {% if not result %}hidden{% endif %}">Saved to history</div>
+                        </div>
+                    </article>
+
+                    <div class="result-subpanel">
+                        <div class="section-label">Uploaded Image Preview</div>
+                        <img id="resultImage" class="preview-image {% if not result %}hidden{% endif %}" {% if result %}src="{{ result.image_url }}"{% endif %} alt="Scanned medicine image">
+                    </div>
+
+                    <div class="ocr-card prominent-ocr">
+                        <div class="section-label">OCR Text</div>
+                        <pre id="ocrText">{% if result and result.ocr_text %}{{ result.ocr_text }}{% elif result %}No readable text found.{% endif %}</pre>
+                    </div>
+
+                    <div class="debug-card">
+                        <div class="section-label">Detailed Model Outputs</div>
+                        <table class="debug-table">
+                            <thead>
+                                <tr>
+                                    <th>Component</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ResNet</td>
+                                    <td id="resnetScore">{% if result and result.detailed_scores %}{{ "%.2f"|format(result.detailed_scores.resnet_score) }}{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>EfficientNet</td>
+                                    <td id="efficientnetScore">{% if result and result.detailed_scores %}{{ "%.2f"|format(result.detailed_scores.efficientnet_score) }}{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>ViT</td>
+                                    <td id="vitScore">{% if result and result.detailed_scores %}{{ "%.2f"|format(result.detailed_scores.vit_score) }}{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td>OCR</td>
+                                    <td id="ocrScore">{% if result and result.detailed_scores %}{{ "%.2f"|format(result.detailed_scores.ocr_score) }}{% else %}-{% endif %}</td>
+                                </tr>
+                                <tr class="debug-total-row">
+                                    <td>Final Ensemble</td>
+                                    <td id="ensembleScore">{% if result and result.detailed_scores %}{{ "%.2f"|format(result.detailed_scores.ensemble_score) }}{% else %}-{% endif %}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="app-footer">
+                <span>AI Pharma Integrity System</span>
+                <span>Developed by Darsh</span>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        window.__SCAN_PAGE__ = {
+            latestResult: {{ latest_result|tojson }}
+        };
+    </script>
+    <script src="https://unpkg.com/html5-qrcode" defer></script>
+    <script src="{{ url_for('static', filename='sidebar.js') }}"></script>
+    <script src="{{ url_for('static', filename='scan.js') }}"></script>
+</body>
+</html>

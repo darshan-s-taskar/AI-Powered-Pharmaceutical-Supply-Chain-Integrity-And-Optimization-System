@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History | AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="layout-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <div class="brand-mark">AI</div>
+                <div>
+                    <div class="brand-name">AI Pharma Integrity System</div>
+                    <div class="brand-subtitle">Supply Chain Optimization</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Sidebar Navigation">
+                <a class="nav-link nav-anchor" href="{{ url_for('dashboard.index') }}" aria-label="Dashboard">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 5h7v6H4zM13 5h7v10h-7zM4 13h7v6H4zM13 17h7v2h-7z" fill="currentColor"/></svg>
+                    </span>
+                    <span class="nav-label">Dashboard</span>
+                </a>
+                <a class="nav-link nav-anchor" href="{{ url_for('dashboard.scan_page') }}" aria-label="Scan Medicine">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v10H4zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="nav-label">Scan Medicine</span>
+                </a>
+                <a class="nav-link nav-anchor active" href="{{ url_for('history_page') }}" aria-label="History">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M7 4v3M17 4v3M5 9h14M6 6h12a1 1 0 0 1 1 1v11H5V7a1 1 0 0 1 1-1Zm3 6h6M9 16h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="nav-label">History</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-note">Healthcare dashboard</div>
+                <div class="sidebar-status">History connected</div>
+            </div>
+        </aside>
+
+        <main class="content-shell">
+            <header class="app-header">
+                <div class="app-header-left">
+                    <button class="sidebar-toggle" type="button" aria-label="Toggle sidebar" aria-expanded="true">
+                        <span class="sidebar-toggle-icon" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+                    <div class="app-header-brand">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</div>
+                </div>
+                <div class="app-header-profile">Admin</div>
+            </header>
+
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</p>
+                    <div class="header-brand-title">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</div>
+                    <h1>History</h1>
+                    <p class="topbar-copy">Every scan is stored in SQLite with image path, result, confidence, extracted text, and timestamp.</p>
+                </div>
+            </header>
+
+            <section class="panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">Past Scans</p>
+                        <h2>Stored Verification Records</h2>
+                    </div>
+                </div>
+
+                <div class="history-table-wrap">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Image</th>
+                                <th>Result</th>
+                                <th>Confidence</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if scans %}
+                                {% for scan in scans %}
+                                <tr>
+                                    <td>#{{ scan.id }}</td>
+                                    <td>
+                                        <div class="history-image-cell">
+                                            <img src="{{ scan.image_url }}" alt="Scan {{ scan.id }}">
+                                            <span>{{ scan.image_path }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="pill {{ scan.result|lower }}">{{ scan.result }}</span>
+                                    </td>
+                                    <td>{{ "%.0f"|format(scan.confidence * 100) }}%</td>
+                                    <td>{{ scan.timestamp }}</td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="history-empty">No scan history saved yet.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer class="app-footer">
+                <span>AI Pharma Integrity System</span>
+                <span>Developed by Darsh</span>
+            </footer>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='sidebar.js') }}"></script>
+</body>
+</html>

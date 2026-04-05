@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="layout-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <div class="brand-mark">AI</div>
+                <div>
+                    <div class="brand-name">AI Pharma Integrity System</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Sidebar Navigation">
+                <button class="nav-link active" type="button" data-section="dashboard-section" aria-label="Dashboard">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 5h7v6H4zM13 5h7v10h-7zM4 13h7v6H4zM13 17h7v2h-7z" fill="currentColor"/></svg>
+                    </span>
+                    <span class="nav-label">Dashboard</span>
+                </button>
+                <button class="nav-link" type="button" data-section="scan-section" aria-label="Scan Medicine">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v10H4zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="nav-label">Scan Medicine</span>
+                </button>
+                <button class="nav-link" type="button" data-section="history-section" aria-label="History">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M7 4v3M17 4v3M5 9h14M6 6h12a1 1 0 0 1 1 1v11H5V7a1 1 0 0 1 1-1Zm3 6h6M9 16h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="nav-label">History</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-note">Healthcare dashboard</div>
+                <div class="sidebar-status">System ready</div>
+            </div>
+        </aside>
+
+        <main class="content-shell">
+            <header class="app-header">
+                <div class="app-header-left">
+                    <button class="sidebar-toggle" type="button" aria-label="Toggle sidebar" aria-expanded="true">
+                        <span class="sidebar-toggle-icon" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+                    <div class="app-header-brand">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</div>
+                </div>
+                <div class="app-header-profile">Admin</div>
+            </header>
+
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</p>
+                    <!--<div class="header-brand-title">AI Powered Pharmaceutical Supply Chain Integrity and Optimization System</div>-->
+                    <h1>Pharmacy Dashboard</h1>
+                    <p class="topbar-copy">A demo-ready healthcare dashboard for medicine integrity verification, scan operations, and audit history.</p>
+                </div>
+            </header>
+
+            <section id="dashboard-section" class="page-section active">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-label">Dashboard</p>
+                        <h2>Verification Overview</h2>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-title">Total scans</div>
+                        <div class="stat-number" data-stat="total_scans">{{ stats.total_scans }}</div>
+                        <div class="stat-note">All medicine scans recorded</div>
+                    </article>
+
+                    <article class="stat-card positive">
+                        <div class="stat-title">Real medicines</div>
+                        <div class="stat-number" data-stat="real_count">{{ stats.real_count }}</div>
+                        <div class="stat-note">Verified authentic results</div>
+                    </article>
+
+                    <article class="stat-card negative">
+                        <div class="stat-title">Fake medicines</div>
+                        <div class="stat-number" data-stat="fake_count">{{ stats.fake_count }}</div>
+                        <div class="stat-note">Detected suspicious medicines</div>
+                    </article>
+                </div>
+
+                <div class="summary-panel">
+                    <div>
+                        <p class="section-label">Project Summary</p>
+                        <h3>Hybrid medicine verification system</h3>
+                        <p>
+                            This dashboard is designed for pharmacy and research demos. It can present
+                            verification statistics, run scans, and maintain a structured history of results.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="scan-section" class="page-section">
+                <div class="split-grid">
+                    <section class="panel">
+                        <div class="section-heading">
+                            <div>
+                                <p class="section-label">Scan Medicine</p>
+                                <h2>Upload or Capture</h2>
+                            </div>
+                            <div class="scan-source-tabs" role="tablist" aria-label="Scan source">
+                                <button class="tab-button active" type="button" data-mode="upload">Upload</button>
+                                <button class="tab-button" type="button" data-mode="camera">Camera</button>
+                            </div>
+                        </div>
+
+                        <div class="scan-pane active" data-pane="upload">
+                            <form id="uploadForm" class="upload-form">
+                                <label for="medicineImage" class="dropzone">
+                                    <span class="dropzone-title">Upload medicine image</span>
+                                    <span class="dropzone-copy">Use a clear photo of the strip, box, or label for better analysis.</span>
+                                </label>
+                                <input id="medicineImage" name="medicine_image" type="file" accept=".png,.jpg,.jpeg,.webp" required>
+                                <button class="primary-button" type="submit">Analyze Medicine</button>
+                            </form>
+                        </div>
+
+                        <div class="scan-pane" data-pane="camera">
+                            <div class="camera-layout">
+                                <video id="cameraFeed" autoplay playsinline muted></video>
+                                <canvas id="cameraCanvas" hidden></canvas>
+                                <div class="camera-actions">
+                                    <button class="secondary-button" type="button" id="startCameraButton">Start Camera</button>
+                                    <button class="primary-button" type="button" id="captureButton">Capture & Analyze</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="scanFeedback" class="feedback" aria-live="polite"></div>
+                    </section>
+
+                    <section class="panel">
+                        <div class="section-heading">
+                            <div>
+                                <p class="section-label">Result</p>
+                                <h2>Latest Scan Output</h2>
+                            </div>
+                        </div>
+
+                        {% set result = latest_result %}
+                        <div id="resultEmptyState" class="empty-state {% if result %}hidden{% endif %}">
+                            Scan a medicine image to view the verification result.
+                        </div>
+
+                        <div id="resultContent" class="{% if not result %}hidden{% endif %}">
+                            <article id="verdictCard" class="verdict-card {% if result %}{{ result.label|lower }}{% endif %}">
+                                <div class="verdict-top">
+                                    <div>
+                                        <div class="section-label">Prediction</div>
+                                        <div id="resultLabel" class="verdict-label">{% if result %}{{ result.label }}{% endif %}</div>
+                                    </div>
+                                    <div class="confidence-box">
+                                        <span>Confidence</span>
+                                        <strong id="resultConfidence">{% if result %}{{ "%.0f"|format(result.confidence * 100) }}%{% endif %}</strong>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <img id="resultImage" class="preview-image {% if not result %}hidden{% endif %}" {% if result %}src="{{ result.image_url }}"{% endif %} alt="Scanned medicine image">
+
+                            <div class="ocr-card">
+                                <div class="section-label">OCR Text</div>
+                                <pre id="ocrText">{% if result and result.ocr_text %}{{ result.ocr_text }}{% elif result %}No readable text found.{% endif %}</pre>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <section id="history-section" class="page-section">
+                <section class="panel">
+                    <div class="section-heading">
+                        <div>
+                            <p class="section-label">History</p>
+                            <h2>Recent Scan Records</h2>
+                        </div>
+                    </div>
+
+                    <div class="history-table-wrap">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>Source</th>
+                                    <th>Result</th>
+                                    <th>Confidence</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                {% if history %}
+                                    {% for item in history %}
+                                    <tr>
+                                        <td>#{{ item.id }}</td>
+                                        <td>
+                                            <div class="history-image-cell">
+                                                <img src="{{ item.image_url }}" alt="{{ item.image_name }}">
+                                                <span>{{ item.image_name }}</span>
+                                            </div>
+                                        </td>
+                                        <td>{{ item.source|capitalize }}</td>
+                                        <td><span class="pill {{ item.label|lower }}">{{ item.label }}</span></td>
+                                        <td>{{ "%.0f"|format(item.confidence * 100) }}%</td>
+                                        <td>{{ item.created_at }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="history-empty">No scans recorded yet.</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <footer class="app-footer">
+                <span>AI Pharma Integrity System</span>
+                <span>Developed by Darshan</span>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        window.__PHARMA_DASHBOARD__ = {
+            latestResult: {{ latest_result|tojson }},
+            history: {{ history|tojson }},
+            stats: {{ stats|tojson }}
+        };
+    </script>
+    <script src="{{ url_for('static', filename='sidebar.js') }}"></script>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>
