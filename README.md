@@ -387,36 +387,6 @@ Table: `scan_history`
 | `extracted_text` | TEXT | OCR output |
 | `timestamp` | TEXT | Scan timestamp |
 
-## Screenshots
-
-The following screenshots should be added to the repository for the best GitHub presentation:
-
-- Dashboard overview
-- Scan Medicine page
-- History page
-
-Recommended folder:
-
-```text
-docs/screenshots/
-```
-
-Recommended filenames:
-
-```text
-docs/screenshots/dashboard.png
-docs/screenshots/scan-page.png
-docs/screenshots/history.png
-```
-
-Then update this section like:
-
-```md
-![Dashboard](docs/screenshots/dashboard.png)
-![Scan Page](docs/screenshots/scan-page.png)
-![History](docs/screenshots/history.png)
-```
-
 ## Future Enhancements
 
 - Blockchain-backed pharmaceutical verification
